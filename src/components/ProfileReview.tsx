@@ -27,18 +27,20 @@ export const ProfileReview: React.FC<ProfileReviewProps> = ({
 
   const handleStartEdit = (index: number) => {
     setEditingIndex(index);
-    setEditValue(String(profile.facts[index].value));
+    setEditValue(String(profile.facts[index]?.value ?? ''));
   };
 
   const handleSaveEdit = (index: number) => {
     const updatedFacts = [...profile.facts];
     let val: any = editValue;
-    if (updatedFacts[index].field === 'age' || updatedFacts[index].field === 'annual_household_income') {
+    const existing = updatedFacts[index];
+    if (!existing) return;
+    if (existing.field === 'age' || existing.field === 'annual_household_income') {
       const num = Number(editValue);
       if (!isNaN(num)) val = num;
     }
     updatedFacts[index] = {
-      ...updatedFacts[index],
+      ...existing,
       value: val,
       confidence: 1.0,
       source: 'User confirmed / edited manually',

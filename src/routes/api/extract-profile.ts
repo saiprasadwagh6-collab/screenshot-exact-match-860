@@ -46,8 +46,8 @@ function extractProfileRuleBased(text: string) {
     text.match(/(?:income|earning|salary|household|family).{0,25}?(\d+(?:\.\d+)?)\s*(?:lakh|lac|lpa)/i) ||
     text.match(/(\d+(?:\.\d+)?)\s*(?:lakh|lac|lpa)\s*(?:per year|annual|family income)?/i);
   if (incomeLakhMatch) {
-    const lakhs = parseFloat(incomeLakhMatch[1]);
-    facts.push({ field: 'annual_household_income', value: lakhs * 100000, confidence: 0.88, source: incomeLakhMatch[0] });
+    const lakhs = parseFloat(incomeLakhMatch[1] ?? '');
+    facts.push({ field: 'annual_household_income', value: lakhs * 100000, confidence: 0.88, source: incomeLakhMatch[0] ?? '' });
   }
 
   if (/\b(?:woman|female|girl|mother|widow|lady)\b/i.test(lower)) {
