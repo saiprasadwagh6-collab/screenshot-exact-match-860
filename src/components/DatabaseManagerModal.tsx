@@ -66,7 +66,7 @@ export const DatabaseManagerModal: React.FC<DatabaseManagerModalProps> = ({
               SchemeDataAdapter.saveCustomSchemes(allParsed);
               onDatabaseUpdated(allParsed);
               setUploadStatus(`Successfully imported ${allParsed.length} schemes from ${files.length} file(s)!`);
-              setSelectedScheme(allParsed[0]);
+              setSelectedScheme(allParsed[0] ?? null);
             } else {
               setUploadStatus('Could not extract valid scheme records. Please verify the JSON, CSV, or SQL structure.');
             }
