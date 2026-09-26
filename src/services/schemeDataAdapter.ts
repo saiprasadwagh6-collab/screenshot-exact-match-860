@@ -1,4 +1,4 @@
-import { SchemeRecord, ProviderType, GovernmentLevel, SchemeStatus, BenefitItem, DocumentItem } from '../types/scheme';
+import { SchemeRecord, ProviderType, GovernmentLevel, SchemeStatus, BenefitItem, DocumentItem, AgeRules, IncomeRules } from '../types/scheme';
 import { DEFAULT_SCHEMES_DATABASE } from '../data/defaultSchemes';
 
 /**
@@ -276,7 +276,7 @@ export class SchemeDataAdapter {
     const minAge = Number(getVal('min_age', 'age_min', 'minimum_age'));
     const maxAge = Number(getVal('max_age', 'age_max', 'maximum_age'));
     const ageDesc = getVal('age_rules', 'age_criteria', 'age_description');
-    const age_rules = (!isNaN(minAge) || !isNaN(maxAge) || ageDesc) ? {
+    const age_rules: AgeRules | null = (!isNaN(minAge) || !isNaN(maxAge) || ageDesc) ? {
       min_age: !isNaN(minAge) ? minAge : null,
       max_age: !isNaN(maxAge) ? maxAge : null,
       description: typeof ageDesc === 'string' ? ageDesc : (ageDesc ? JSON.stringify(ageDesc) : undefined),
@@ -286,7 +286,7 @@ export class SchemeDataAdapter {
     const maxIncome = Number(getVal('max_annual_income', 'income_limit', 'annual_income_limit', 'income_max'));
     const minIncome = Number(getVal('min_annual_income', 'income_min'));
     const incDesc = getVal('income_rules', 'income_criteria', 'income_description');
-    const income_rules = (!isNaN(maxIncome) || !isNaN(minIncome) || incDesc) ? {
+    const income_rules: IncomeRules | null = (!isNaN(maxIncome) || !isNaN(minIncome) || incDesc) ? {
       max_annual_income: !isNaN(maxIncome) ? maxIncome : null,
       min_annual_income: !isNaN(minIncome) ? minIncome : null,
       description: typeof incDesc === 'string' ? incDesc : (incDesc ? JSON.stringify(incDesc) : undefined),
