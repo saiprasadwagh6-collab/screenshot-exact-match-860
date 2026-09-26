@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
@@ -34,6 +34,7 @@ import { SchemeComparisonModal } from '@/components/SchemeComparisonModal';
 import { DatabaseManagerModal } from '@/components/DatabaseManagerModal';
 import { ScenarioPickerModal } from '@/components/ScenarioPickerModal';
 import { TestScenario } from '@/data/syntheticScenarios';
+import fullDbAsset from '@/assets/schemes.json.asset.json';
 import {
   Filter,
   Layers,
@@ -49,6 +50,22 @@ import {
 function App() {
   // Database state
   const [database, setDatabase] = useState<SchemeRecord[]>(() => SchemeDataAdapter.getSchemes());
+
+  // Load the complete scheme database (2,066 schemes) unless a custom import exists
+  useEffect(() => {
+    if (localStorage.getItem('schemesaar_custom_database')) return;
+    let cancelled = false;
+    fetch(fullDbAsset.url)
+      .then((r) => r.json())
+      .then((full: SchemeRecord[]) => {
+        if (cancelled || !Array.isArray(full)) return;
+        const names = new Set(full.map((s) => s.name.toLowerCase()));
+        const extras = SchemeDataAdapter.getSchemes().filter((s) => !names.has(s.name.toLowerCase()));
+        setDatabase([...extras, ...full]);
+      })
+      .catch((e) => console.error('Failed to load full scheme database', e));
+    return () => { cancelled = true; };
+  }, []);
 
   // Input & Profile state
   const [inputText, setInputText] = useState('');
