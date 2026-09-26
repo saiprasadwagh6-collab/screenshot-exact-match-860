@@ -152,11 +152,11 @@ export const SchemeCard: React.FC<SchemeCardProps> = ({
               Key Benefit / Assistance
             </span>
             <div className="text-sm font-semibold text-stone-900">
-              {benefits[0].amount_or_details}
+              {benefits[0]?.amount_or_details}
             </div>
-            {benefits[0].description && (
+            {benefits[0]?.description && (
               <p className="text-xs text-stone-600 mt-0.5 leading-relaxed">
-                {benefits[0].description}
+                {benefits[0]?.description}
               </p>
             )}
           </div>
@@ -205,7 +205,7 @@ export const SchemeCard: React.FC<SchemeCardProps> = ({
         {unknownCriteria.length >= 1 && unknownCriteria.length <= 2 && onRefineResult && (
           <div className="p-3 bg-amber-50/70 border border-amber-200/60 rounded-xl flex items-center justify-between gap-3 text-xs">
             <span className="text-amber-900">
-              Clarify {unknownCriteria[0].criterion_name} to confirm qualification.
+              Clarify {unknownCriteria[0]?.criterion_name} to confirm qualification.
             </span>
             <button
               onClick={() => onRefineResult(candidate)}
