@@ -9,7 +9,7 @@ function extractProfileRuleBased(text: string) {
     text.match(/\b(\d{1,2})\s*(?:years?\s*old|yr|yo|age\s*(?:is|of)?\s*(\d{1,2}))\b/i) ||
     text.match(/\bage[:\s]+(\d{1,2})\b/i);
   if (ageMatch) {
-    const ageVal = parseInt(ageMatch[1] || ageMatch[2], 10);
+    const ageVal = parseInt(ageMatch[1] || ageMatch[2] || '', 10);
     if (!isNaN(ageVal) && ageVal > 0 && ageVal < 110) {
       facts.push({ field: 'age', value: ageVal, confidence: 0.95, source: ageMatch[0] });
     }
