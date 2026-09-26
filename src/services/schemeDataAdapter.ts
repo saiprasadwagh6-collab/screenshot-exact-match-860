@@ -14,6 +14,7 @@ export class SchemeDataAdapter {
    */
   public static getSchemes(): SchemeRecord[] {
     try {
+      if (typeof window === 'undefined') return DEFAULT_SCHEMES_DATABASE;
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
