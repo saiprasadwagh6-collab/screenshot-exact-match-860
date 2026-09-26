@@ -159,14 +159,14 @@ export class SchemeDataAdapter {
     let recCount = 1;
 
     while ((match = insertRegex.exec(content)) !== null) {
-      const columns = match[2].split(',').map((c) => c.trim().replace(/[`"']/g, '').toLowerCase());
-      const rawValues = match[3];
+      const columns = (match[2] ?? '').split(',').map((c) => c.trim().replace(/[`"']/g, '').toLowerCase());
+      const rawValues = match[3] ?? '';
 
       // Match each tuple (val1, val2, ...)
       const tupleRegex = /\(([^)]+)\)/g;
       let tupleMatch;
       while ((tupleMatch = tupleRegex.exec(rawValues)) !== null) {
-        const vals = this.parseCSVLine(tupleMatch[1], ',').map((v) =>
+        const vals = this.parseCSVLine(tupleMatch[1] ?? '', ',').map((v) =>
           v.trim().replace(/^['"]|['"]$/g, '')
         );
         const item: Record<string, any> = {};
