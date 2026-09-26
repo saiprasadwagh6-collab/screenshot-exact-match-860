@@ -103,11 +103,11 @@ export class SchemeDataAdapter {
     const lines = content.split(/\r?\n/).filter((l) => l.trim().length > 0);
     if (lines.length < 2) return [];
 
-    const headers = this.parseCSVLine(lines[0], delimiter).map((h) => h.trim().toLowerCase());
+    const headers = this.parseCSVLine(lines[0] ?? '', delimiter).map((h) => h.trim().toLowerCase());
     const records: SchemeRecord[] = [];
 
     for (let i = 1; i < lines.length; i++) {
-      const values = this.parseCSVLine(lines[i], delimiter);
+      const values = this.parseCSVLine(lines[i] ?? '', delimiter);
       if (values.length === 0 || (values.length === 1 && !values[0])) continue;
 
       const rawItem: Record<string, any> = {};
