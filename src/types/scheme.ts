@@ -8,48 +8,48 @@ export type GovernmentLevel = 'Central' | 'State' | 'District' | 'Municipal' | '
 export type SchemeStatus = 'Active' | 'Closed' | 'Upcoming' | 'Unknown';
 
 export interface AgeRules {
-  min_age?: number | null;
-  max_age?: number | null;
-  description?: string;
+  min_age?: number | null | undefined;
+  max_age?: number | null | undefined;
+  description?: string | undefined;
 }
 
 export interface IncomeRules {
-  max_annual_income?: number | null;
-  min_annual_income?: number | null;
-  category_specific_limits?: Record<string, number>;
-  description?: string;
+  max_annual_income?: number | null | undefined;
+  min_annual_income?: number | null | undefined;
+  category_specific_limits?: Record<string, number> | undefined;
+  description?: string | undefined;
 }
 
 export interface OccupationRules {
   allowed_occupations?: string[];
   disallowed_occupations?: string[];
   farmer_types?: string[]; // e.g. Small & Marginal, Tenant, Any
-  description?: string;
+  description?: string | undefined;
 }
 
 export interface EducationRules {
   min_education_level?: string;
   eligible_courses?: string[];
   current_student_required?: boolean;
-  description?: string;
+  description?: string | undefined;
 }
 
 export interface GenderRules {
   allowed_genders?: ('male' | 'female' | 'transgender' | 'any')[];
-  description?: string;
+  description?: string | undefined;
 }
 
 export interface CategoryRules {
   allowed_social_categories?: ('General' | 'OBC' | 'SC' | 'ST' | 'EWS' | 'Minority' | 'Any')[];
   minority_only?: boolean;
-  description?: string;
+  description?: string | undefined;
 }
 
 export interface GeographyRules {
   area_type?: ('Rural' | 'Urban' | 'Semi-Urban' | 'Any')[];
   states?: string[];
   districts?: string[];
-  description?: string;
+  description?: string | undefined;
 }
 
 export interface BenefitItem {
@@ -62,7 +62,7 @@ export interface BenefitItem {
 export interface DocumentItem {
   name: string;
   mandatory: boolean;
-  description?: string;
+  description?: string | undefined;
   alternative_documents?: string[];
 }
 
